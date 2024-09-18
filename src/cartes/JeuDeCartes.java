@@ -1,8 +1,8 @@
 package cartes;
 
-public class Cartes {
+public class JeuDeCartes {
 
-	public Cartes() {
+	public JeuDeCartes() {
 		// TODO Auto-generated constructor stub
 	}
 
