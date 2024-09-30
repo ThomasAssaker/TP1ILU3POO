@@ -21,33 +21,39 @@ public class TestSabot {
         Sabot sabot = new Sabot(cartes);
 
         try {
-            // a. Pioche une carte avant d'entrer dans la boucle
+            // Étape a : Pioche une carte avant d'entrer dans la boucle
             Carte carte = sabot.piocher();
             System.out.println("Je pioche " + carte);
 
-            // b. Utilisation de l'itérateur et remove pour piocher et supprimer les cartes
+            // Étape b : Utilisation de l'itérateur pour piocher et supprimer les cartes
             Iterator<Carte> it = sabot.iterator();
+            int iteration = 0; // Compteur d'itérations pour ajouter AsDuVolant après 2 itérations
+
             while (it.hasNext()) {
                 carte = it.next();
                 System.out.println("Je pioche " + carte);
                 it.remove(); // Supprime la carte après l'avoir piochée
+
+                // Étape c : Ajouter une carte dans la boucle pour provoquer une exception
+                if (iteration == 2) { // On insère AsDuVolant à la 3e itération
+                    sabot.ajouterCarte(new Botte("AsDuVolant"));
+                    System.out.println("Ajout de la carte AsDuVolant dans la boucle.");
+                }
+                iteration++;
             }
 
-            // c. Tentative d'ajouter une carte après la boucle pour provoquer une exception
-            sabot.ajouterCarte(new Botte("AsDuVolant")); // Ajout après avoir vidé le sabot
-            System.out.println("Ajout de la carte AsDuVolant après la boucle.");
         } catch (IllegalStateException e) {
-            System.out.println("Erreur : Capacité maximale du sabot atteinte.");
+            System.out.println("Erreur : Capacité maximale du sabot atteinte");
         } catch (NoSuchElementException e) {
-            System.out.println("Le sabot est vide !");
+            System.out.println("Le sabot est vide");
         }
 
-        // Tentative de piocher après que le sabot soit vide, ce qui devrait lever une exception
+        // Tentative de piocher après que le sabot soit vide, ce qui doit lever une exception
         try {
             Carte carte = sabot.piocher(); // Ce piocheur doit lever une exception
             System.out.println("Je pioche " + carte);
         } catch (NoSuchElementException e) {
-            System.out.println("Erreur : Le sabot est vide !");
+            System.out.println("Erreur : Le sabot est vide");
         }
     }
 }

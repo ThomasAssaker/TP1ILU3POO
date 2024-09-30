@@ -1,5 +1,4 @@
 package testsFonctionnels;
-
 import cartes.Attaque;
 import cartes.Parade;
 import cartes.Botte;
@@ -11,7 +10,6 @@ public class TestJeuDeCartes {
     public static void main(String[] args) {
         // Création du jeu de cartes
         JeuDeCartes jeuDeCartes = new JeuDeCartes();
-
         // Ajout des cartes avec leurs nombres d'exemplaires
         jeuDeCartes.ajouterConfiguration(new Borne("25KM"), 10);
         jeuDeCartes.ajouterConfiguration(new Borne("50KM"), 10);
@@ -21,7 +19,6 @@ public class TestJeuDeCartes {
         jeuDeCartes.ajouterConfiguration(new Parade("Feu Vert"), 14);
         jeuDeCartes.ajouterConfiguration(new Attaque("Feu Rouge"), 5);
         jeuDeCartes.ajouterConfiguration(new Botte("Increvable"), 1);
-
         // Affichage du jeu de cartes
         jeuDeCartes.affichageJeuDeCartes();
     }

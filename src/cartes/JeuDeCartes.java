@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JeuDeCartes {
-    private List<Configuration> configurations;
+    private final List<Configuration> configurations;
 
     // Constructeur
     public JeuDeCartes() {
-        configurations = new ArrayList<>();
+        this.configurations = new ArrayList<>();
     }
 
     // Ajoute une configuration de carte avec le nombre d'exemplaires
@@ -19,8 +19,9 @@ public class JeuDeCartes {
     // Méthode d'affichage du jeu de cartes
     public void affichageJeuDeCartes() {
         System.out.println("JEU :");
-        for (Configuration configuration : configurations) {
-            System.out.println(configuration.getNombreExemplaires() + " " + configuration.getCarte());
-        }
+        configurations.forEach(configuration -> 
+            System.out.println(configuration.getNombreExemplaires() + " " + configuration.getCarte())
+        );
     }
 }
+
