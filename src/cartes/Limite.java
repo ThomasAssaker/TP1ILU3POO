@@ -1,12 +1,9 @@
 package cartes;
 
-public class Limite extends Carte {
-    public Limite(String nom) {
-        super(Type.BOTTE, nom); // Associe un type à la limite, ici utilisé comme BOTTE
-    }
+public abstract class Limite extends Carte {
 
-    @Override
-    public String toString() {
-        return "Limite: " + nom;
-    }
+	public Limite() {
+		// TODO Auto-generated constructor stub
+	}
+
 }

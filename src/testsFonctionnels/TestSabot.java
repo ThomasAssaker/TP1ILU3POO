@@ -1,59 +1,59 @@
 package testsFonctionnels;
 
+import java.util.Iterator;
+
 import cartes.*;
 import jeu.Sabot;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class TestSabot {
+	JeuDeCartes jeu = new JeuDeCartes();
+	Sabot sabot = new Sabot(jeu.donnerCartes());
 
-    public static void main(String[] args) {
-        // Crée un tableau de cartes pour le sabot
-        Carte[] cartes = {
-            new Borne("25KM"),
-            new Borne("50KM"),
-            new Borne("75KM"),
-            new Parade("Feu Vert"),
-            new Attaque("Feu Rouge")
-        };
+	// 4.2.a
+	public void questionA() {
+		
+		while (!sabot.estVide()) {
+			Carte carte = sabot.piocher();
+			System.out.println("Je pioche " + carte);
+		}
+//		Console :
+//		Je pioche Accident
+//		Je pioche Accident
+//		Je pioche Accident
+//		Je pioche Rï¿½paration
+//		Je pioche Rï¿½paration
+//		Je pioche Rï¿½paration
+//		Je pioche As du volant
+	}
 
-        // Crée le sabot avec les cartes
-        Sabot sabot = new Sabot(cartes);
+	// 4.2.b
+	public void questionB() {
+		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
+			System.out.println("Je pioche " + iterator.next());
+			iterator.remove();
+		}
+	}
 
-        try {
-            // Étape a : Pioche une carte avant d'entrer dans la boucle
-            Carte carte = sabot.piocher();
-            System.out.println("Je pioche " + carte);
+	// 4.2.c
+	public void questionC() {
+//		Carte cartePiochee = sabot.piocher();
+//		System.out.println("Je pioche " + cartePiochee);
+//		for (Iterator<Carte> iterator = sabot.iterator(); iterator.hasNext();) {
+//			Carte carte = iterator.next();
+//			System.out.println("Je pioche " + carte);
+//			iterator.remove();
+//			Carte cartePiochee = sabot.piocher();
+//			sabot.ajouterCarte(new Botte(cartes.Type.ACCIDENT));
+//		}
+//		Iterator<Carte> iterator = sabot.iterator();
+//		System.out.println("\nLa pioche contient encore des cartes ? " + iterator.hasNext());
+	}
 
-            // Étape b : Utilisation de l'itérateur pour piocher et supprimer les cartes
-            Iterator<Carte> it = sabot.iterator();
-            int iteration = 0; // Compteur d'itérations pour ajouter AsDuVolant après 2 itérations
+	public static void main(String[] args) {
+		TestSabot testPioche = new TestSabot();
+//		testPioche.questionA();
+//		testPioche.questionB();
+//		testPioche.questionC();
+	}
 
-            while (it.hasNext()) {
-                carte = it.next();
-                System.out.println("Je pioche " + carte);
-                it.remove(); // Supprime la carte après l'avoir piochée
-
-                // Étape c : Ajouter une carte dans la boucle pour provoquer une exception
-                if (iteration == 2) { // On insère AsDuVolant à la 3e itération
-                    sabot.ajouterCarte(new Botte("AsDuVolant"));
-                    System.out.println("Ajout de la carte AsDuVolant dans la boucle.");
-                }
-                iteration++;
-            }
-
-        } catch (IllegalStateException e) {
-            System.out.println("Erreur : Capacité maximale du sabot atteinte");
-        } catch (NoSuchElementException e) {
-            System.out.println("Le sabot est vide");
-        }
-
-        // Tentative de piocher après que le sabot soit vide, ce qui doit lever une exception
-        try {
-            Carte carte = sabot.piocher(); // Ce piocheur doit lever une exception
-            System.out.println("Je pioche " + carte);
-        } catch (NoSuchElementException e) {
-            System.out.println("Erreur : Le sabot est vide");
-        }
-    }
 }

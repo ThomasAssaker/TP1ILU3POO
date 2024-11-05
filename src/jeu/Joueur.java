@@ -3,53 +3,48 @@ package jeu;
 import cartes.Carte;
 
 public class Joueur {
-    private String nom;
-    private ZoneDeJeu zoneDeJeu;
+	private String name;
+	private ZoneDeJeu zone;
+	private MainJoueur main;
+	
+	public Joueur(String name, ZoneDeJeu zone) {
+		this.name = name;
+		this.zone = zone;
+		this.main = new MainJoueur();
+	}
+	
+	public String toString() {
+		return name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 
-    // Constructeur
-    public Joueur(String nom) {
-        this.nom = nom;
-        this.zoneDeJeu = new ZoneDeJeu();
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public ZoneDeJeu getZoneDeJeu() {
-        return zoneDeJeu;
-    }
-
-    // Méthode pour déposer une carte dans la zone de jeu
-    public void deposerCarte(Carte carte) {
-        zoneDeJeu.deposer(carte);
-    }
-
-    // Méthode pour obtenir le total de km parcourus
-    public int donnerKmParcourus() {
-        return zoneDeJeu.donnerKmParcourus();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Joueur autreJoueur = (Joueur) obj;
-        return nom.equals(autreJoueur.nom);
-    }
-
-    @Override
-    public String toString() {
-        return nom;
-    }
-    
-    public boolean estDepotAutorise(Carte carte) {
-        return zoneDeJeu.estDepotAutorise(carte); // Appelle la méthode de ZoneDeJeu
-    }
-
+	public void donner(Carte c) {
+		main.prendre(c);
+	}
+	
+	public Carte prendreCarte(Sabot<Carte> sabot) {
+		if (sabot.estVide()) {
+			return null;
+		} else {
+			Carte c = sabot.piocher();
+			donner(c);
+	
+			return c;
+		}
+	}	
+	
+	public int donnerKmParcourus() {
+		return zone.donnerKmParcourus();
+	}
+	
+	@Override
+	public boolean equals(Object joueur) {
+		if(joueur instanceof Joueur j) {
+			return name.equals(j.getName());
+		}
+		return false;
+	}
 }
-
